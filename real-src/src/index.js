@@ -1,46 +1,33 @@
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.rtl.min.css";
+
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Suspense } from "react";
-import { lazy } from "react";
-import Index from "./routes/Index";
 import { Provider } from "react-redux";
-import store from "./store/index";
+import store from "./store/store";
+import Root from "./routes/Root";
+import Home from "./routes/Home";
+import ErrorPage from "./routes/ErrorPage";
 
-const RootLayout = lazy(() => import("./routes/RootLayout"));
 const AddProduct = lazy(() => import("./routes/AddProduct"));
 const EditProduct = lazy(() => import("./routes/EditProduct"));
 const DetailsProduct = lazy(() => import("./routes/DetailsProduct"));
-const ErrorPage = lazy(() => import("./routes/ErrorPage"));
 
-const loadingMessage = <center>loading Please Wait...</center>;
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={loadingMessage}>
-        <RootLayout />
-      </Suspense>
-    ),
-    errorElement: (
-      <Suspense fallback={loadingMessage}>
-        <ErrorPage />
-      </Suspense>
-    ),
+    element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Index /> },
-      {
-        path: "products",
-        element: <Index />,
-      },
+      { index: true, element: <Home /> },
       {
         path: "products/add",
         element: (
-          <Suspense fallback={loadingMessage}>
+          <Suspense fallback={<center>loading Please Wait...</center>}>
             <AddProduct />
           </Suspense>
         ),
@@ -48,22 +35,15 @@ const routes = createBrowserRouter([
       {
         path: "products/:id/edit",
         element: (
-          <Suspense fallback={loadingMessage}>
+          <Suspense fallback={<center>loading Please Wait...</center>}>
             <EditProduct />
           </Suspense>
         ),
-        loader: ({ params }) => {
-          if (isNaN(params.id))
-            throw new Response("Bad Request", {
-              statusText: "Make sure you Link.",
-              status: 400,
-            });
-        },
       },
       {
         path: "products/:id/details",
         element: (
-          <Suspense fallback={loadingMessage}>
+          <Suspense fallback={<center>loading Please Wait...</center>}>
             <DetailsProduct />
           </Suspense>
         ),

@@ -1,0 +1,202 @@
+more info{
+
+  React.lazy(() => import("./pages/DetailsProduct")); => عندما نريد تحميل الصفحه فقط عند دخولنا اليها عشان الصفحات متحملش لوحده وتخلي الموقع تقيل lazy نستخدم
+
+  formik library => في طريقه العمل state وهي تشبه ال  inputs الخاص ب ال form  تستخدم في اداره بينات ال
+  formik Yup => وهي مكتبه خاصه ب التحقق من ان حقول البينات صحيحه او خطأه لأخراج الخطأ او اكمال عمليه ارسال البنات
+
+
+  !!"luke" => true 
+  !!"" => false
+}
+
+1 => reoter new version
+
+
+===== DONE ===== 
+
+2 => create store (redux toolkit)
+
+3 => createAsyncThunk
+
+4 => useCallback
+--------
+5 => useMemo(()=>{// code here},[])  => state الغير ضروري وهي تعمل فقط عند تحديث في ال render بتسخدم لأيقاف ال
+انواع البينات التي يمكن كتابتها فيها هي ال
+object, array,( function "just return")
+--------
+6 => memo() => الممره له props وتجنب إعادة تشغيلها إذا لم تتغير ال component تستخدم لتحسين أداء ال 
+
+7 => children
+
+8 => life cycle "useEffect"
+
+9 =>  useRef() => document.querySelector("div") لكي نستطيع التحكم فيه مثل  element تستخدم في عمل تحديد لل
+ ref={"ref name"} element من خلال كتابه بداخل ال 
+
+===== DONE =====
+
+
+lif cycle شرح لطريقه عمل ال
+ -INFO-{"dependency" 
+   useEffect(()=>{
+     "code here"
+   },[state or props or var]) -> this is dependency
+ } 
+ [DidMount] -> للصفحه render عند عمل
+   step 1 =>  render => عمل تحميل للصفحه
+   step 2 =>  useEffect => render مرا واحده بعد ال useEffect ثم تعمل ال 
+   ---------------------------
+ [DidUpdate] -> State لل render عند عمل 
+  step 1 =>  update te state => useEffect الذي داخل ال state تعمل عند تحديث الصفحه وعند حدوث اي تغير في ال useEffect ال useEffect(()=>,[state]) داخل ال state عند وضع اي 
+  step 2 => if(state) condition => State  لكي لا تعمل الا عند حدوث تغير في ال if condition  نضع الكود داخل update عند ال render ولتجنب حدوث 
+  step 3 => re-render -> useEffect => التي بداخلها state بعد تحديث ال useEffect ثم تعمل ال 
+   ---------------------------
+ [WillUnMounting] -> action معين اريد انشاء render عند الخروج من الصفحه او عند الأنتهاء من 
+
+ 
+component في ال re-evaluat شرح طريقه عمل ال
+ +------------------------------------+
+ |                                    |
+ |              Re-evaluat            |
+ |                                    |
+ +-------------------+----------------+
+                     |
+                     v
+ +------------------------------------+
+ |                                    |
+ |             Update Data            |
+ |                                    |
+ +-------------------+----------------+
+                     |
+                     v
+ +-------------------|----------------+
+ |                   v                |
+ |      Is there a change in data?    |
+ |                   |                |
+ +-------------------|----------------+
+                     |
+                     | Yes
+                     v
+ +-------------------|----------------+
+ |                   v                |
+ |       Re-evaluate and Generate     |
+ |        New Interface Elements      |
+ |                   |                |
+ +-------------------|----------------+
+                     |
+                     v
+ +------------------------------------+
+ |                                    |
+ |               Re-render            |
+ |                                    |
+ +-------------------+----------------+
+ "Re-evaluate" => يشير إلى عملية إعادة التقييم.
+"Update Data" => تشير إلى تحديث البيانات الأساسية.
+"Is there a change in data?" => يشير إلى التحقق من وجود تغيير في البيانات.
+"Re-evaluate and Generate New Interface Elements" => يشير إلى إعادة التقييم وإنشاء عناصر واجهة مستخدم جديدة.
+"Re-render" => يشير إلى إعادة تقديم أو تحديث العناصر البصرية في الواجهة.
+==============================================================================
+الفرق بين الهوكين (Hooks) useCallback وuseMemo في 4 أسطر يمكن شرحه كما يلي:
+
+1 => الوظيفة الأساسية:
+    useCallback: يُستخدم لتخزين الدوال وإعادة استخدامها عند الحاجة.
+    useMemo: يُستخدم لتخزين القيم الناتجة وإعادة استخدامها عند الحاجة.
+
+2 => البنية العامة:
+    useCallback: يأخذ وظيفة ومصفوفة الاعتماديات كمدخلات ويُرجع نفس الوظيفة المخزنة.
+    useMemo: يأخذ وظيفة الحساب ومصفوفة الاعتماديات كمدخلات ويُرجع القيمة المحسوبة.
+
+3 => تنفيذ التحسين:
+    useCallback: يقلل من الإعادة الغير ضرورية للدوال عند إعادة تقديم العناصر النائبة.
+    useMemo: يقلل من الإعادة الغير ضرورية لحساب القيم عند إعادة تقديم العناصر النائبة.
+
+4 => الاستخدام المناسب:
+    useCallback: يُفضل استخدامه عندما تعتمد الدالة على قيم خارجية محددة وتحتاج إلى تجنب إعادة تنفيذها غير الضروري.
+    useMemo: يُفضل استخدامه عندما يكون لديك حسابات مكلفة أو قيم محسوبة تستخدم بشكل متكرر وتحتاج إلى تجنب إعادة حسابها غير الضروي.
+    من الجدير بالذكر أنه في العديد من الحالات، يمكن استخدام useCallback و useMemo بشكل متبادل وفقًا لمتطلبات التحسين في التطبي3.
+==============================================================================
+=======
+useCallback() => مثال علي ال
+=======
+  function App() {
+    const [user, setUser] = useState({ name: "Muhamed" });
+    const ageHundler = useCallback(() => {
+      setUser((prev) => {
+        if (prev.age) return prev;
+        else return { ...prev, age: 19 };
+      });
+    }, []);
+  
+    return (
+      <div className="App">
+        <button onClick={ageHundler}>click</button>
+        <p>age: {user.age}</p>
+      </div>
+    );
+  }
+  export default App;
+==============================================================================
+==============================================================================
+=======
+useMemo() => مثال علي ال
+=======  [page-'App']
+   function App() { 
+     const [user, setUser] = useState({ name: "Muhamed" });
+   
+     const date = useMemo(() => {
+       return user;
+     }, [user]);
+   
+     return (
+       <div className="App">
+       <ViewData data={date}> // component
+       </div>
+     );
+   }
+   export default App;
+-------
+=======
+useMemo() => مثال علي ال
+=======  [page-'ViewData']
+
+  function ViewText({ data }) {
+  return (
+    <div className="box">
+      <p>name: {data.name}</p>
+    </div>
+  );
+  }
+  export default ViewText
+==============================================================================
+==============================================================================
+=======
+memo() => مثال علي ال
+======= 
+
+  function ViewText({ data }) {
+  return (
+    <div className="box">
+      <p>name: {data.name}</p>
+    </div>
+  );
+  }
+  export default memo(ViewText)
+==============================================================================
+==============================================================================
+=======
+useRef()=> مثال علي ال
+=======
+=======
+useRef()=> مثال علي ال
+=======
+  function App() {
+    const inputRef = useRef(null);
+    const inputHundler = () => console.log(inputRef.current.value)
+    return (
+      <div className="App">
+          <input type="text" onChange={inputHundler}/>
+      </div>
+    );
+  }
+  export default App;
