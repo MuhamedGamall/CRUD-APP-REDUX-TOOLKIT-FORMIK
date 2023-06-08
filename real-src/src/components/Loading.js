@@ -15,7 +15,7 @@ function Loading({ children, loading, error }) {
           ) : error ? (
             <>
               {children}
-              <p> Error " {error} "</p>
+              <p> " {error} "</p>
             </>
           ) : (
             children

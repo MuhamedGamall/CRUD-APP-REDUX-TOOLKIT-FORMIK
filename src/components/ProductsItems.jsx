@@ -1,27 +1,17 @@
-import { Button, ButtonGroup, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
+import ProductsHundler from "./ProductsHundler";
+import { memo, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../store/slices/productsSlice";
 
 function ProductsItems({ data, loading, error }) {
-  console.log(data);
-  const products = data.map((el) => (
-    <tr key={el.id}>
-      <td>#{el.id}</td>
-      <td className="title">{el.title}</td>
-      <td>{el.category}</td>
-      <td>{el.price}</td>
-      <td>
-        <ButtonGroup aria-label="Basic example">
-          <Button variant="success">
-            <Link to={`products/${el.id}/edit`}>Edit</Link>
-          </Button>
-          <Button variant="primary">
-            <Link to={`products/${el.id}/details`}>Details</Link>
-          </Button>
-          <Button variant="danger">Delete</Button>
-        </ButtonGroup>
-      </td>
-    </tr>
-  ));
+  const dispatch = useDispatch();
+  const deleteItem = useCallback(
+    (id) => {
+      dispatch(deleteProduct(id));
+    },
+    [dispatch]
+  );
   return (
     <Table striped bordered hover variant="dark">
       <thead>
@@ -33,9 +23,16 @@ function ProductsItems({ data, loading, error }) {
           <th>Action</th>
         </tr>
       </thead>
-      <tbody>{products}</tbody>
+      <tbody>
+        <ProductsHundler
+          data={data}
+          loading={loading}
+          error={error}
+          deleteProduct={deleteItem}
+        />
+      </tbody>
     </Table>
   );
 }
 
-export default ProductsItems;
+export default memo(ProductsItems);
