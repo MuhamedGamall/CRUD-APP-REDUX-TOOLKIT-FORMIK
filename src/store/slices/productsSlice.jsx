@@ -16,18 +16,56 @@ export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async (id, thunkApi) => {
     const { rejectWithValue } = thunkApi;
-    console.log(id);
     try {
       await axios.delete(`http://localhost:4000/products/${id}`);
-      return id
+      return id;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
 );
+
+export const insertProduct = createAsyncThunk(
+  "products/insertProduct",
+  async (item, thunkApi) => {
+    const { rejectWithValue, getState } = thunkApi;
+    const { auth } = getState();
+    const config = {
+      "Content-type": "application/json; charset=UTF-8",
+    };
+    try {
+      item.userId = auth.id;
+      const res = await axios.post(
+        `http://localhost:4000/products`,
+        item,
+        config
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      rejectWithValue(error.message);
+    }
+  }
+);
+export const ProductDetails = createAsyncThunk(
+  "products/ProductDetails",
+  async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+      const res = (
+        await axios.get(`http://localhost:4000/products/${id}`)
+      ).data;
+      console.log(res);
+
+      return res;
+    } catch (error) {
+      rejectWithValue(error.meesege);
+    }
+  }
+);
 const products = createSlice({
   name: "products",
-  initialState: { products: [], loading: false, error: null },
+  initialState: { products: [], product: null, loading: false, error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -55,6 +93,34 @@ const products = createSlice({
         );
       })
       .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(insertProduct.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(insertProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products.push(action.payload);
+      })
+      .addCase(insertProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    builder
+      .addCase(ProductDetails.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(ProductDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload;
+      })
+      .addCase(ProductDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

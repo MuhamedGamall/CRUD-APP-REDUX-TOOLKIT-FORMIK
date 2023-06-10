@@ -50,6 +50,7 @@ function AddProduct() {
               value={formik.values.title}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.title}
+              
             />
             <Form.Control.Feedback type="invalid">
               {formik.errors.title}

@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/css/bootstrap.rtl.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
@@ -52,13 +52,13 @@ const routes = createBrowserRouter([
             <EditProduct />
           </Suspense>
         ),
-        loader: ({ params }) => {
-          if (isNaN(params.id))
-            throw new Response("Bad Request", {
-              statusText: "Make sure you Link.",
-              status: 400,
-            });
-        },
+        // loader: ({ params }) => {
+        //   if (isNaN(params.id))
+        //     throw new Response("Bad Request", {
+        //       statusText: "Make sure you Link.",
+        //       status: 400,
+        //     });
+        // },
       },
       {
         path: "products/:id/details",
@@ -67,6 +67,14 @@ const routes = createBrowserRouter([
             <DetailsProduct />
           </Suspense>
         ),
+        // loader: ({ params }) => {
+        //   if (isNaN(params.id))
+        //     throw new Response("Bad Request", {
+        //       statusText: "Make sure you Link.",
+        //       status: 400,
+        //     });
+        // },
+        
       },
     ],
   },

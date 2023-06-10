@@ -2,8 +2,9 @@ button a {
   color: rgb(255, 255, 255) !important;
 }
 a.active {
-  border: 1px solid rgb(0, 0, 0) !important;
-  background-color: #686868a8 !important;
+  border-bottom: 1px solid rgb(243, 243, 243) !important;
+  background-color: rgba(104, 104, 104, 0.336) !important;
+
   text-decoration: none !important;
   color: white !important;
 }
@@ -14,11 +15,12 @@ a.active {
   gap: 10px;
 }
 .navbar  a {
-  color: #111 !important;
+  color: #ffffff !important;
   text-decoration: none;
   cursor: pointer;
   outline: none !important;
   transition: 0.2s;
+  padding: 5px;
 }
 th.title,
 td.title {
