@@ -40,7 +40,6 @@ export const insertProduct = createAsyncThunk(
         item,
         config
       );
-      console.log(res.data);
       return res.data;
     } catch (error) {
       rejectWithValue(error.message);

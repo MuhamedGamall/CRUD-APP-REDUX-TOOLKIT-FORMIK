@@ -46,7 +46,6 @@ function EditProduct() {
       handleFormSubmit(val);
     },
   });
-  console.log(formik.values.title);
   return (
     <Container style={{ marginTop: "15px" }}>
       <Form onSubmit={formik.handleSubmit}>
