@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { Link, useNavigate, useRouteError } from "react-router-dom";
+import { useNavigate, useRouteError } from "react-router-dom";
 
 function ErrorPage() {
   const error = useRouteError();
@@ -11,7 +11,6 @@ function ErrorPage() {
         <br />
         <br />
         <br />
-
         <h1 style={{ fontSize: "30px" }}>Oops !!</h1>
         <h3>Error Page</h3>
         <i>{error.statusText || error.message}</i>

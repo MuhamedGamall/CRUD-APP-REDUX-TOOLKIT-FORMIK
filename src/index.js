@@ -1,14 +1,15 @@
 import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
 import { lazy } from "react";
-import Index from "./routes/Index";
 import { Provider } from "react-redux";
+
+import Index from "./routes/Index";
 import store from "./store/index";
 
 const RootLayout = lazy(() => import("./routes/RootLayout"));
@@ -16,8 +17,14 @@ const AddProduct = lazy(() => import("./routes/AddProduct"));
 const EditProduct = lazy(() => import("./routes/EditProduct"));
 const DetailsProduct = lazy(() => import("./routes/DetailsProduct"));
 const ErrorPage = lazy(() => import("./routes/ErrorPage"));
-
 const loadingMessage = <center>loading Please Wait...</center>;
+const productsParamsHandler = ({ params }) => {
+  if (isNaN(params.id))
+    throw new Response("Bad Request", {
+      statusText: "Make sure you Link.",
+      status: 400,
+    });
+};
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -52,13 +59,7 @@ const routes = createBrowserRouter([
             <EditProduct />
           </Suspense>
         ),
-        // loader: ({ params }) => {
-        //   if (isNaN(params.id))
-        //     throw new Response("Bad Request", {
-        //       statusText: "Make sure you Link.",
-        //       status: 400,
-        //     });
-        // },
+        // loader: productsParamsHandler
       },
       {
         path: "products/:id/details",
@@ -67,14 +68,8 @@ const routes = createBrowserRouter([
             <DetailsProduct />
           </Suspense>
         ),
-        // loader: ({ params }) => {
-        //   if (isNaN(params.id))
-        //     throw new Response("Bad Request", {
-        //       statusText: "Make sure you Link.",
-        //       status: 400,
-        //     });
-        // },
         
+        // loader: productsParamsHandler
       },
     ],
   },

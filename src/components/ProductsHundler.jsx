@@ -1,8 +1,10 @@
 import { Button, ButtonGroup } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const ProductsHundler = ({ data, deleteProduct }) => {
-  const HandleDelete = (el) => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const handleDelete = (el) => {
     if (
       window.confirm(
         `Do You Realy Wont To Delete This Item "${el.title
@@ -29,7 +31,17 @@ const ProductsHundler = ({ data, deleteProduct }) => {
           <Button variant="primary">
             <Link to={`products/${el.id}/details`}>Details</Link>
           </Button>
-          <Button variant="danger" onClick={() => HandleDelete(el)}>
+          <Button
+            variant="danger"
+            onClick={() => handleDelete(el)}
+            disabled={!isLoggedIn}
+            style={{ lineHeight: "1" }}
+          >
+            <h6
+              style={{ fontSize: "8px", whiteSpace: "nowrap", lineHeight: "0" }}
+            >
+              {!isLoggedIn && "Please log in first"}
+            </h6>
             Delete
           </Button>
         </ButtonGroup>
