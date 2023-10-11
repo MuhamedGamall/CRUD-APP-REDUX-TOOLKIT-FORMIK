@@ -154,7 +154,7 @@ const products = createSlice({
       })
       .addCase(editProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.product = action.payload;
+        state.product = action.payload
       })
       .addCase(editProduct.rejected, (state, action) => {
         state.loading = false;
@@ -164,4 +164,4 @@ const products = createSlice({
 });
 
 export default products.reducer;
-export const {cleanUpProduct} = products.actions
+export const { cleanUpProduct } = products.actions;
