@@ -18,13 +18,13 @@ const EditProduct = lazy(() => import("./routes/EditProduct"));
 const DetailsProduct = lazy(() => import("./routes/DetailsProduct"));
 const ErrorPage = lazy(() => import("./routes/ErrorPage"));
 const loadingMessage = <center>loading Please Wait...</center>;
-const productsParamsHandler = ({ params }) => {
-  if (isNaN(params.id))
-    throw new Response("Bad Request", {
-      statusText: "Make sure you Link.",
-      status: 400,
-    });
-};
+// const productsParamsHandler = ({ params }) => {
+//   if (isNaN(params.id))
+//     throw new Response("Bad Request", {
+//       statusText: "Make sure you Link.",
+//       status: 400,
+//     });
+// };
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -68,7 +68,7 @@ const routes = createBrowserRouter([
             <DetailsProduct />
           </Suspense>
         ),
-        
+
         // loader: productsParamsHandler
       },
     ],

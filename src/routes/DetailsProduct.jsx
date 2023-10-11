@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 function DetailsProduct() {
-  const { loading, error, product, id } = useProductData();
+  const { loading, error, product } = useProductData();
   const dispatch = useDispatch();
 
   useEffect(() => {
