@@ -6,7 +6,11 @@ export const fetchProducts = createAsyncThunk(
   async (_, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      return (await axios.get("http://localhost:4000/products")).data;
+      return (
+        await axios.get(
+          "https://server-react-crud-app-redux-toolkit-formik.vercel.app/products"
+        )
+      ).data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -17,7 +21,9 @@ export const deleteProduct = createAsyncThunk(
   async (id, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      await axios.delete(`http://localhost:4000/products/${id}`);
+      await axios.delete(
+        `https://server-react-crud-app-redux-toolkit-formik.vercel.app/products/${id}`
+      );
       return id;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -36,7 +42,7 @@ export const insertProduct = createAsyncThunk(
     try {
       item.userId = auth.id;
       const res = await axios.post(
-        `http://localhost:4000/products`,
+        `https://server-react-crud-app-redux-toolkit-formik.vercel.app/products`,
         item,
         config
       );
@@ -51,8 +57,11 @@ export const productDetails = createAsyncThunk(
   async (id, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-      const res = (await axios.get(`http://localhost:4000/products/${id}`))
-        .data;
+      const res = (
+        await axios.get(
+          `https://server-react-crud-app-redux-toolkit-formik.vercel.app/products/${id}`
+        )
+      ).data;
       return res;
     } catch (error) {
       rejectWithValue(error.meesege);
@@ -69,7 +78,7 @@ export const editProduct = createAsyncThunk(
     try {
       const res = (
         await axios.patch(
-          `http://localhost:4000/products/${item.id}`,
+          `https://server-react-crud-app-redux-toolkit-formik.vercel.app/products/${item.id}`,
           item,
           config
         )
@@ -154,7 +163,7 @@ const products = createSlice({
       })
       .addCase(editProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.product = action.payload
+        state.product = action.payload;
       })
       .addCase(editProduct.rejected, (state, action) => {
         state.loading = false;

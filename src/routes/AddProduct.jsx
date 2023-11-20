@@ -1,17 +1,17 @@
 import { Box, Container, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { productsSchema } from "../util/validationSchema";
-import { Form, Button, } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { insertProduct } from "../store/slices/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
-import withGuard from "../util/withGuard";
+import WithGuard from "../util/withGuard";
 
 function AddProduct() {
   const { loading, error } = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleFormSubmit = (val) => {
     dispatch(
       insertProduct({
@@ -20,7 +20,10 @@ function AddProduct() {
         description: val.description,
         price: val.price,
       })
-    ).unwrap().then(()=>navigate('/')).catch((err)=>alert(err))
+    )
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((err) => alert(err));
   };
   const formik = useFormik({
     initialValues: {
@@ -92,7 +95,7 @@ function AddProduct() {
 
           <Box display={"flex"} justifyContent={"end"} mt={"20px"}>
             <Loading loading={loading} error={error}>
-              <Button type="submit" color="secondary" >
+              <Button type="submit" color="secondary">
                 Create New Product
               </Button>
             </Loading>
@@ -103,4 +106,4 @@ function AddProduct() {
   );
 }
 
-export default withGuard(AddProduct);
+export default WithGuard(AddProduct);

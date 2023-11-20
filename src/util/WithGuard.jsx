@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-const withGuard = (Component) => {
+const WithGuard = (Component) => {
   const Wrapper = () => {
     const { isLoggedIn } = useSelector((state) => state.auth);
     return isLoggedIn ? <Component /> : <div>Please Log In First !</div>;
@@ -8,4 +8,4 @@ const withGuard = (Component) => {
   return Wrapper;
 };
 
-export default withGuard;
+export default WithGuard;
